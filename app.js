@@ -45,6 +45,19 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+app.get("/sobre", function (req, res) {
+  res.send("Página sobre, com as informações.");
+});
+
+app.get("/contato", function (req, res) {
+  res.send("Página contato, entre em contato pelo telefone (99)98765-4321");
+});
+
+app.get("/produto/:id", function (req, res) {
+  const id = req.params.id;
+  res.send(`O produto de id ${id} foi encontrado.`);
+});
+
 app.listen(port, function () {
   console.log(`Aplicação rodando na porta ${3000}`);
 });
