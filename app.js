@@ -48,7 +48,17 @@ const port = 3000;
 
 let users = [];
 
+// Exerc 3 - Middleware para registrar o horário de cada solicitação recebida
+const logHoraMiddleware = (req, res, next) => {
+  const horaAtual = new Date().toISOString();
+  console.log(
+    `[${horaAtual}] Nova solicitação recebida para: ${req.method} ${req.originalUrl}`
+  );
+  next(); // Chamar next() para passar a solicitação para o próximo middleware
+};
+
 app.use(express.json());
+app.use(logHoraMiddleware);
 
 // Exerc 2 - Rotas
 app.get("/sobre", function (req, res) {
