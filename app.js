@@ -41,10 +41,16 @@
 // Se o usuário não for encontrado, retorne uma resposta com status 404 (Not Found).
 // Após excluir o usuário com sucesso, retorne uma resposta com status 200 (OK) e uma mensagem indicando que o usuário foi excluído.
 
+// Exerc 1 - Introducao ao Express
 const express = require("express");
 const app = express();
 const port = 3000;
 
+let users = [];
+
+app.use(express.json());
+
+// Exerc 2 - Rotas
 app.get("/sobre", function (req, res) {
   res.send("Página sobre, com as informações.");
 });
@@ -53,11 +59,68 @@ app.get("/contato", function (req, res) {
   res.send("Página contato, entre em contato pelo telefone (99)98765-4321");
 });
 
+// Exerc 4 - Parâmetros
 app.get("/produto/:id", function (req, res) {
   const id = req.params.id;
   res.send(`O produto de id ${id} foi encontrado.`);
 });
 
+// Exerc 5 - Arquivos estáticos
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+// Exerc 6 - CRUD para a rota /users
+
+// rota POST /users, para adicionar um novo usuário
+app.post("/users", function (req, res) {
+  const user = req.body;
+  user.id = users.length > 0 ? users[users.length - 1].id + 1 : 1;
+  users.push(user);
+  res.status(201).send("Usuário adicionada com sucesso!");
+});
+
+// rota GET /users, para retornar a lista completa de usuários
+app.get("/users", function (req, res) {
+  res.json(users);
+});
+
+// rota GET /users/:id, para retornar os detalhes de um usuário específico com base no ID fornecido na URL
+app.get("/users/:id", function (req, res) {
+  const { id } = req.params;
+  const user = users.find((user) => user.id === parseInt(id));
+  if (!user) {
+    res.status(404).send("Pessoa não encontrada!");
+    return;
+  }
+  res.json(user);
+});
+
+// rota PUT /users/:id para atualizar os dados de um usuário existente com base no ID fornecido na URL
+app.put("/users/:id", function (req, res) {
+  const { id } = req.params;
+  const newData = req.body;
+  const index = users.findIndex((user) => user.id === parseInt(id));
+  if (index === -1) {
+    res.status(404).send("Pessoa não encontrada!");
+    return;
+  }
+  users[index] = { ...users[index], ...newData };
+  res.status(200).send("Pessoa atualizada com sucesso.");
+});
+
+// rota DELETE /users/:id para deletar uma pessoa por ID
+app.delete("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const index = users.findIndex((user) => user.id === parseInt(id));
+  if (index === -1) {
+    res.status(404).send("Usuário não encontrado!");
+    return;
+  }
+  users.splice(index, 1);
+  res.status(200).send("Usuário deletado com sucesso!");
+});
+
 app.listen(port, function () {
-  console.log(`Aplicação rodando na porta ${3000}`);
+  console.log(`Aplicação rodando na porta ${port}`);
 });
