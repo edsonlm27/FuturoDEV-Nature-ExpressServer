@@ -1,0 +1,65 @@
+{
+	"info": {
+		"_postman_id": "c2565009-9544-42b4-b7f8-ca11cfec1ef0",
+		"name": "CRUD-Sem10-Mini-Projeto",
+		"description": "Curso FuturoDEV Nature - Mini Projeto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32044029"
+	},
+	"item": [
+		{
+			"name": "Adicionar Produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Câmara 27 polegadas\",\r\n    \"preco\": 40.30,\r\n    \"descricao\": \"câmara utilizada em bicicleta speed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/produtos"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar todos produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:3001/produtos"
+			},
+			"response": []
+		},
+		{
+			"name": "Alterar produto por id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Pneu bicicleta aro 27\",\r\n  \"preco\": 54.50,\r\n  \"descricao\": \"pneu utilizado em bicicleta speed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3001/produtos/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar produto por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3001/produtos/3"
+			},
+			"response": []
+		}
+	]
+}
